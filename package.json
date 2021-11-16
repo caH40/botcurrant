@@ -4,8 +4,15 @@
   "description": "bot currant",
   "main": "botcurrant.js",
   "scripts": {
+    "start": "node botmeetup.js",
+    "dev": "nodemon botmeetup.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Berezhnev A.",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "nodemon": "^2.0.15",
+    "telegraf": "^3.39.0"
+  }
 }
