@@ -3,8 +3,6 @@ const fs = require('fs');
 const cityList = require('./citylistru.json')
 const logerror = require('../app_modules/logerror')
 
-
-
 const writeCurrentWeather = function () {
 
 	let i = 0
@@ -37,42 +35,29 @@ const writeCurrentWeather = function () {
 					const dateUpdate = new Date().toLocaleString();
 					let weatherDateRus = '';
 
-					if (dayWeather === 0) {
-						weatherDateRus = 'Воскресенье ' + weatherDate
+					const dayMyObj = {
+						1: 'Понедельник',
+						2: 'Вторник',
+						3: 'Среда',
+						4: 'Четверг',
+						5: 'Пятница',
+						6: 'Суббота',
+						0: 'Воскресенье',
 					}
-					if (dayWeather === 6) {
-						weatherDateRus = 'Суббота ' + weatherDate
+					weatherDateRus = dayMyObj[dayWeather] + ' ' + weatherDate
+
+					const cityMyObj = {
+						'Kislovodsk': 'Кисловодск',
+						'Pyatigorsk': 'Пятигорск',
+						'Karachayevsk': 'Карачаевск',
+						'Alagir': 'Алагир',
+						'Arkhyz': 'Архыз',
+						'Baksan': 'Баксан',
+						'Nal’chik': 'Нальчик'
 					}
-					if (dayWeather === 1 || dayWeather === 2 || dayWeather === 3 || dayWeather === 4 || dayWeather === 5) {
-						weatherDateRus = weatherDate
-					};
 
-					let cityMyRus = [];
-					if (cityMy[x] === 'Kislovodsk') {
-						cityMyRus = 'Кисловодск';
-					};
-					if (cityMy[x] === 'Pyatigorsk') {
-						cityMyRus = 'Пятигорск';
-					};
-					if (cityMy[x] === 'Karachayevsk') {
-						cityMyRus = 'Карачаевск';
-					};
-					if (cityMy[x] === 'Alagir') {
-						cityMyRus = 'Алагир';
-					};
-					if (cityMy[x] === 'Arkhyz') {
-						cityMyRus = 'Архыз';
-					};
-					if (cityMy[x] === 'Baksan') {
-						cityMyRus = 'Баксан';
-					};
-					if (cityMy[x] === 'Nal’chik') {
-						cityMyRus = 'Нальчик';
-					};
+					const zap = { 'dateUpdate': dateUpdate, 'date': weatherDateRus, 'city': cityMyObj[cityMy[x]], 'temp': Math.round(weatherTemp), 'humidity': weatherHumidity, 'windSpeed': Math.round(weatherWindSpeed), 'desc': weatherDescription }
 
-
-					const zap = { 'dateUpdate': dateUpdate, 'date': weatherDateRus, 'city': cityMyRus, 'temp': Math.round(weatherTemp), 'humidity': weatherHumidity, 'windSpeed': Math.round(weatherWindSpeed), 'desc': weatherDescription }
-					// console.log(zap)
 					if (dayWeather === 0 && dayWeatherToday !== new Date().toLocaleDateString()) {
 						arrayWeatherSun.push(zap)
 					}
@@ -86,8 +71,7 @@ const writeCurrentWeather = function () {
 				arrayWeatherSun.sort((a, b) => b.temp - a.temp)
 				arrayWeatherSat.sort((a, b) => b.temp - a.temp)
 				arrayWeatherTom.sort((a, b) => b.temp - a.temp)
-				// console.log(arrayWeatherSat)
-				// console.log(arrayWeatherSun)
+
 				fs.writeFile('./weather/sunweather.json', JSON.stringify(arrayWeatherSun), err => {
 					if (err) {
 						logerror(err)
@@ -106,8 +90,8 @@ const writeCurrentWeather = function () {
 
 			}
 			)
-			.catch(() => logerror(err))
+			.catch((err) => logerror(err))
 	};
 }
-// setInterval(writeCurrentWeather, 10000)
+
 module.exports = writeCurrentWeather

@@ -53,7 +53,7 @@ bot.on('callback_query', async ctx => {
 
 bot.launch()
 // запрос погоды с сервера и запись данных в локальные файлы
-setInterval(writeCurrentWeather, 3600000)
+setInterval(writeCurrentWeather, 10000)
 
 // Enable graceful stop
 process.once('SIGINT', () => bot.stop('SIGINT'))
