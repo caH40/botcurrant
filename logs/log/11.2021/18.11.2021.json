@@ -1,0 +1,62 @@
+[
+	{
+		"update_id": 249768009,
+		"message": {
+			"message_id": 5939,
+			"from": {
+				"id": 412801722,
+				"is_bot": false,
+				"first_name": "Aleksandr",
+				"last_name": "BV",
+				"username": "Aleksandr_BV",
+				"language_code": "ru"
+			},
+			"chat": {
+				"id": 412801722,
+				"first_name": "Aleksandr",
+				"last_name": "BV",
+				"username": "Aleksandr_BV",
+				"type": "private"
+			},
+			"date": 1637220421,
+			"text": "/webcam",
+			"entities": [
+				{
+					"offset": 0,
+					"length": 7,
+					"type": "bot_command"
+				}
+			]
+		}
+	},
+	{
+		"update_id": 249768010,
+		"message": {
+			"message_id": 5941,
+			"from": {
+				"id": 412801722,
+				"is_bot": false,
+				"first_name": "Aleksandr",
+				"last_name": "BV",
+				"username": "Aleksandr_BV",
+				"language_code": "ru"
+			},
+			"chat": {
+				"id": 412801722,
+				"first_name": "Aleksandr",
+				"last_name": "BV",
+				"username": "Aleksandr_BV",
+				"type": "private"
+			},
+			"date": 1637220424,
+			"text": "/info",
+			"entities": [
+				{
+					"offset": 0,
+					"length": 5,
+					"type": "bot_command"
+				}
+			]
+		}
+	}
+]

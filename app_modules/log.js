@@ -2,7 +2,10 @@ const fs = require('fs')
 const logerror = require('./logerror')
 
 const getDate = () => new Date().toLocaleDateString()
-const path = `./logs/log/${getDate()}.json`
+const dirDate = () => ((new Date().getMonth()) + 1) + '.' + (new Date().getFullYear())
+const pathDir = `./logs/log/${dirDate()}`
+const path = `./logs/log/${dirDate()}/${getDate()}.json`
+const creatNewDir = () => { fs.mkdirSync(pathDir) }
 const creatNewLog = () => {
 	fs.writeFile(path, '[]', err => {
 		if (err) {
@@ -10,8 +13,14 @@ const creatNewLog = () => {
 		}
 	})
 }
+
+
 // update информация о запросе
 const addLog = async function (update) {
+	// проверка наличия папки mm.yyyy, если нет то создаем
+	if (!fs.existsSync(pathDir)) {
+		creatNewDir()
+	}
 	//проверка наличия файла с текущей датой
 	if (!fs.existsSync(path)) {
 		await creatNewLog()
