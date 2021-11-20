@@ -12,7 +12,7 @@ const func = {
 	},
 	readWeatherJson: async function (dayWeather) {
 		let dayWeatherCurI
-		const content = fs.readFileSync(`./weather/${dayWeather}.json`)
+		const content = fs.readFileSync(`./weather/${dayWeather}.json`, { encoding: 'utf8' })
 		// console.log(content)
 		if (content !== '[]' && content !== '') {
 			dayWeather = JSON.parse(content)
@@ -22,6 +22,9 @@ const func = {
 				let dayWeatherCur = `<b>${dayWeather[i].city}:</b> ${dayWeather[i].temp}°С, ${dayWeather[i].humidity}%, ${dayWeather[i].windSpeed}м/с, ${dayWeather[i].desc} \n`
 				dayWeatherCurI = dayWeatherCurI + dayWeatherCur
 			}
+		} else {
+			dayWeatherCurI = 'Что то пошло не так...'
+			// console.log('Ошибка найдена')
 		}
 		return dayWeatherCurI
 	}

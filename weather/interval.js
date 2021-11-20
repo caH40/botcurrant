@@ -90,7 +90,7 @@ const writeCurrentWeather = function () {
 
 			}
 			)
-			.catch((err) => logerror(err))
+			.catch((err) => logerror('Fetch - ' + err))
 	};
 }
 
