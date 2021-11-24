@@ -1,0 +1,1 @@
+24.11.2021, 10:00:34:{"code":400,"response":{"ok":false,"error_code":400,"description":"Bad Request: message can't be deleted"},"description":"Bad Request: message can't be deleted","parameters":{},"on":{"method":"deleteMessage","payload":{"chat_id":-1001501681280,"message_id":3341}}}
