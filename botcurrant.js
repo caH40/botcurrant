@@ -1,12 +1,17 @@
 require('dotenv').config()
 const { Telegraf } = require('telegraf')
 const bot = new Telegraf(process.env.BOT_TOKEN)
+
 const func = require('./app_modules/function')
 const text = require('./app_modules/texts')
 const keyboards = require('./app_modules/keyboards')
 const addLog = require('./app_modules/log')
 const logerror = require('./app_modules/logerror')
 const writeCurrentWeather = require('./weather/interval')
+const saveLogs = require('./logs/savelogs');
+
+
+
 
 
 
@@ -15,8 +20,12 @@ bot.catch((err, ctx) => {
 })
 bot.start(async ctx => {
 	await ctx.reply(`Привет! ${ctx.message.from.first_name ?? 'Незнакомец'}!\nПри нажании "/" вызываются команды бота!`)
+	saveLogs(ctx.message)
 })
-bot.help(async ctx => await ctx.reply(text.commands))
+bot.help(async ctx => {
+	await ctx.reply(text.commands)
+	saveLogs(ctx.message)
+})
 bot.command('webcam', async ctx => {
 	await ctx.reply('Вебкамеры:', { reply_markup: { inline_keyboard: keyboards.webCam } })
 	addLog(ctx.update)
@@ -26,6 +35,7 @@ bot.command('webcam', async ctx => {
 			ctx.deleteMessage(ctx.update.message.message_id).catch(err => logerror(err))
 		})
 		.catch(err => logerror(err))
+	saveLogs(ctx.message)
 })
 bot.command('info', async ctx => {
 	await ctx.reply('Информационные ресурсы:', { reply_markup: { inline_keyboard: keyboards.info } })
@@ -36,6 +46,7 @@ bot.command('info', async ctx => {
 			ctx.deleteMessage(ctx.update.message.message_id).catch(err => logerror(err))
 		})
 		.catch(err => logerror(err))
+	saveLogs(ctx.message)
 })
 bot.on('callback_query', async ctx => {
 	const data = ctx.update.callback_query.data
@@ -49,11 +60,15 @@ bot.on('callback_query', async ctx => {
 		func.readWeatherJson('tomweather')
 			.then(response => ctx.reply(response, { parse_mode: 'html' }))
 	}
+	saveLogs(ctx.message)
+})
+bot.on('message', async ctx => {
+	await saveLogs(ctx.message)
 })
 
 bot.launch()
 // запрос погоды с сервера и запись данных в локальные файлы
-setInterval(writeCurrentWeather, 10000)
+setInterval(writeCurrentWeather, 3600000)
 
 // Enable graceful stop
 process.once('SIGINT', () => bot.stop('SIGINT'))
