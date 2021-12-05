@@ -1,9 +1,10 @@
+require('dotenv').config()
 const mongoose = require('mongoose')
 const Message = require('../models/Message')
 
 
 // подключение к базе данных
-mongoose.connect('mongodb://localhost:27017/testbot')
+mongoose.connect(process.env.MONGODB)
 	.then(() => {
 		console.log('MongoDb connected..')
 	})
