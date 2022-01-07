@@ -8,10 +8,7 @@ const keyboards = require('./app_modules/keyboards')
 const addLog = require('./app_modules/log')
 const logerror = require('./app_modules/logerror')
 const writeCurrentWeather = require('./weather/interval')
-const saveLogs = require('./logs/savelogs');
-
-
-
+const logsAllMessages = require('./logs/logsAllMessages');
 
 
 
@@ -19,12 +16,13 @@ bot.catch((err, ctx) => {
 	console.log(`Ooops, encountered an error for ${ctx.updateType}`, err)
 })
 bot.start(async ctx => {
-	await ctx.reply(`Привет! ${ctx.message.from.first_name ?? 'Незнакомец'}!\nПри нажании "/" вызываются команды бота!`)
-	saveLogs(ctx.message)
+	await ctx.reply(`Привет! ${ctx.message.from.first_name ?? 'Незнакомец'}!\nПри нажатии "/" вызываются команды бота!`)
+	await logsAllMessages(ctx.message)
+
 })
 bot.help(async ctx => {
 	await ctx.reply(text.commands)
-	saveLogs(ctx.message)
+	await logsAllMessages(ctx.message)
 })
 bot.command('webcam', async ctx => {
 	await ctx.reply('Вебкамеры:', { reply_markup: { inline_keyboard: keyboards.webCam } })
@@ -35,7 +33,7 @@ bot.command('webcam', async ctx => {
 			ctx.deleteMessage(ctx.update.message.message_id).catch(err => logerror(err))
 		})
 		.catch(err => logerror(err))
-	saveLogs(ctx.message)
+	await logsAllMessages(ctx.message)
 })
 bot.command('info', async ctx => {
 	await ctx.reply('Информационные ресурсы:', { reply_markup: { inline_keyboard: keyboards.info } })
@@ -46,7 +44,7 @@ bot.command('info', async ctx => {
 			ctx.deleteMessage(ctx.update.message.message_id).catch(err => logerror(err))
 		})
 		.catch(err => logerror(err))
-	saveLogs(ctx.message)
+	await logsAllMessages(ctx.message)
 })
 bot.on('callback_query', async ctx => {
 	const data = ctx.update.callback_query.data
@@ -60,10 +58,11 @@ bot.on('callback_query', async ctx => {
 		func.readWeatherJson('tomweather')
 			.then(response => ctx.reply(response, { parse_mode: 'html' }))
 	}
-	saveLogs(ctx.message)
+	await logsAllMessages(ctx.message)
 })
 bot.on('message', async ctx => {
-	await saveLogs(ctx.message)
+	await logsAllMessages(ctx.message)
+
 })
 
 bot.launch()
