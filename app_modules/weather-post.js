@@ -5,8 +5,8 @@ async function getWeather(currentDay, bot) {
 	const weatherArr = await WeatherWeek.findOne().catch(error => console.log(error));
 
 	if (currentDay === 'weatherWeekend') {
-		getMessageFinal('Суббота', weatherArr, bot);
-		getMessageFinal('Воскресенье', weatherArr, bot);
+		await getMessageFinal('Суббота', weatherArr, bot).catch(error => console.log(error));
+		await getMessageFinal('Воскресенье', weatherArr, bot).catch(error => console.log(error));
 	}
 
 	if (currentDay === 'weatherTomorrow') {
@@ -26,7 +26,7 @@ async function getWeather(currentDay, bot) {
 			tomorrow = days[0];
 		}
 
-		getMessageFinal(tomorrow, weatherArr, bot);
+		await getMessageFinal(tomorrow, weatherArr, bot).catch(error => console.log(error));
 	}
 }
 
@@ -43,7 +43,7 @@ async function getMessageFinal(requiredDay, weatherArr, bot) {
 		messageFinal = messageFinal + messageWeather;
 	}
 
-	bot.reply(messageFinal, { parse_mode: 'html' });
+	await bot.reply(messageFinal, { parse_mode: 'html' }).catch(error => console.log(error));
 }
 
 module.exports = getWeather

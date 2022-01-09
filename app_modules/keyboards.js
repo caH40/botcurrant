@@ -52,5 +52,5 @@ const keyboards = {
 		]
 
 	]
-}
+};
 module.exports = keyboards
