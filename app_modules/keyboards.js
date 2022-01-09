@@ -47,7 +47,7 @@ const keyboards = {
 		[
 			{
 				text: 'Погода на выходные', // текст на кнопке
-				callback_data: 'weather'
+				callback_data: 'weatherWeekend'
 			}
 		]
 

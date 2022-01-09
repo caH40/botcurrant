@@ -1,73 +1,103 @@
-require('dotenv').config()
-const { Telegraf } = require('telegraf')
-const bot = new Telegraf(process.env.BOT_TOKEN)
+require('dotenv').config();
+const mongoose = require('mongoose');
+const { Telegraf } = require('telegraf');
+const bot = new Telegraf(process.env.BOT_TOKEN);
 
-const func = require('./app_modules/function')
-const text = require('./app_modules/texts')
-const keyboards = require('./app_modules/keyboards')
-const addLog = require('./app_modules/log')
-const logerror = require('./app_modules/logerror')
-const writeCurrentWeather = require('./weather/interval')
-const logsAllMessages = require('./logs/logsAllMessages');
+const getWeatherDb = require('./weather/get-weather');
+const text = require('./app_modules/texts');
+const keyboards = require('./app_modules/keyboards');
+const weatherPost = require('./app_modules/weather-post');
+const logsAllMessages = require('./app_modules/log-messages');
 
+// подключение к базе данных
+mongoose.connect(process.env.MONGODB)
+	.then(() => {
+		console.log('MongoDb connected..');
+	})
+	.catch((error) => {
+		console.log(error);
+	})
 
+const secondsInMinute = 60000;
 
 bot.catch((err, ctx) => {
-	console.log(`Ooops, encountered an error for ${ctx.updateType}`, err)
-})
+	console.log(`Ooops, encountered an error for ${ctx.updateType}`, err);
+});
+
 bot.start(async ctx => {
-	await ctx.reply(`Привет! ${ctx.message.from.first_name ?? 'Незнакомец'}!\nПри нажатии "/" вызываются команды бота!`)
-	await logsAllMessages(ctx.message)
+	try {
+		await ctx.reply(`Привет! ${ctx.message.from.first_name ?? 'Незнакомец'}!\nПри нажатии "/" вызываются команды бота!`);
+		await logsAllMessages(ctx.message);
+	} catch (error) {
+		console.log(error);
+	}
+});
 
-})
 bot.help(async ctx => {
-	await ctx.reply(text.commands)
-	await logsAllMessages(ctx.message)
-})
+	try {
+		await ctx.reply(text.commands);
+		await logsAllMessages(ctx.message);
+	} catch (error) {
+		console.log(error);
+	}
+});
+
 bot.command('webcam', async ctx => {
-	await ctx.reply('Вебкамеры:', { reply_markup: { inline_keyboard: keyboards.webCam } })
-	addLog(ctx.update)
-	func.delay(60000)
-		.then(() => {
-			ctx.deleteMessage(ctx.update.message.message_id + 1).catch(err => logerror(err))
-			ctx.deleteMessage(ctx.update.message.message_id).catch(err => logerror(err))
-		})
-		.catch(err => logerror(err))
-	await logsAllMessages(ctx.message)
-})
+	try {
+		await ctx.reply('Вебкамеры:', { reply_markup: { inline_keyboard: keyboards.webCam } });
+		setTimeout(() => {
+			ctx.deleteMessage(ctx.update.message.message_id + 1);
+			ctx.deleteMessage(ctx.update.message.message_id);
+		}, secondsInMinute);
+		await logsAllMessages(ctx.message);
+	} catch (error) {
+		console.log(error);
+	}
+});
+
 bot.command('info', async ctx => {
-	await ctx.reply('Информационные ресурсы:', { reply_markup: { inline_keyboard: keyboards.info } })
-	addLog(ctx.update)
-	func.delay(60000)
-		.then(() => {
-			ctx.deleteMessage(ctx.update.message.message_id + 1).catch(err => logerror(err))
-			ctx.deleteMessage(ctx.update.message.message_id).catch(err => logerror(err))
-		})
-		.catch(err => logerror(err))
-	await logsAllMessages(ctx.message)
-})
+	try {
+		await ctx.reply('Информационные ресурсы:', { reply_markup: { inline_keyboard: keyboards.info } });
+		setTimeout(() => {
+			ctx.deleteMessage(ctx.update.message.message_id + 1);
+			ctx.deleteMessage(ctx.update.message.message_id);
+		}, secondsInMinute);
+		await logsAllMessages(ctx.message);
+	} catch (error) {
+		console.log(error);
+	}
+});
+
 bot.on('callback_query', async ctx => {
-	const data = ctx.update.callback_query.data
-	if (data === 'weather') {
-		func.readWeatherJson('satweather')
-			.then(response => ctx.reply(response, { parse_mode: 'html' }))
-		func.readWeatherJson('sunweather')
-			.then(response => ctx.reply(response, { parse_mode: 'html' }))
+	try {
+		const data = ctx.update.callback_query.data;
+		if (data === 'weatherWeekend') {
+			weatherPost(data, ctx);
+		}
+		if (data === 'weatherTomorrow') {
+			weatherPost(data, ctx);
+		}
+		await logsAllMessages(ctx.message);
+	} catch (error) {
+		console.log(error);
 	}
-	if (data === 'weatherTomorrow') {
-		func.readWeatherJson('tomweather')
-			.then(response => ctx.reply(response, { parse_mode: 'html' }))
-	}
-	await logsAllMessages(ctx.message)
-})
+});
+
 bot.on('message', async ctx => {
-	await logsAllMessages(ctx.message)
+	try {
+		await logsAllMessages(ctx.message);
+	} catch (error) {
+		console.log(error);
+	}
+});
 
-})
+bot.launch();
+// запрос погоды с сервера и запись данных в базу данных
+const secondsInHour = 3600000
+setInterval(() => {
+	getWeatherDb()
+}, secondsInHour);
 
-bot.launch()
-// запрос погоды с сервера и запись данных в локальные файлы
-setInterval(writeCurrentWeather, 3600000)
 
 // Enable graceful stop
 process.once('SIGINT', () => bot.stop('SIGINT'))

@@ -2501,7 +2501,7 @@
 	},
 	{
 		"id": 466990,
-		"name": "Yessentuki",
+		"name": "Ессентуки",
 		"state": "",
 		"country": "RU",
 		"coord": {
@@ -20341,12 +20341,12 @@
 	},
 	{
 		"id": 503550,
-		"name": "Pyatigorsk",
+		"name": "Пятигорск",
 		"state": "",
 		"country": "RU",
 		"coord": {
-			"lon": 43.059444,
-			"lat": 44.048611
+			"lon": 42.67180,
+			"lat": 43.81840
 		}
 	},
 	{
@@ -30041,7 +30041,7 @@
 	},
 	{
 		"id": 523523,
-		"name": "Nal’chik",
+		"name": "Нальчик",
 		"state": "",
 		"country": "RU",
 		"coord": {
@@ -31571,7 +31571,7 @@
 	},
 	{
 		"id": 526480,
-		"name": "Mineralnye Vody",
+		"name": "Минеральные Воды",
 		"state": "",
 		"country": "RU",
 		"coord": {
@@ -42281,7 +42281,7 @@
 	},
 	{
 		"id": 548114,
-		"name": "Kislovodsk",
+		"name": "Кисловодск",
 		"state": "",
 		"country": "RU",
 		"coord": {
@@ -44411,7 +44411,7 @@
 	},
 	{
 		"id": 552924,
-		"name": "Karachayevsk",
+		"name": "Карачаевск",
 		"state": "",
 		"country": "RU",
 		"coord": {
@@ -57251,7 +57251,7 @@
 	},
 	{
 		"id": 579574,
-		"name": "Baksan",
+		"name": "Баксан",
 		"state": "",
 		"country": "RU",
 		"coord": {
@@ -58081,7 +58081,7 @@
 	},
 	{
 		"id": 580939,
-		"name": "Arkhyz",
+		"name": "Архыз",
 		"state": "",
 		"country": "RU",
 		"coord": {
@@ -60851,7 +60851,7 @@
 	},
 	{
 		"id": 802078,
-		"name": "Alagir",
+		"name": "Алагир",
 		"state": "",
 		"country": "RU",
 		"coord": {
@@ -87677,6 +87677,16 @@
 		"coord": {
 			"lon": 132.156433,
 			"lat": 43.20417
+		}
+	},
+	{
+		"id": 8260661,
+		"name": "Барашек",
+		"state": "",
+		"country": "RU",
+		"coord": {
+			"lon": 42.672737,
+			"lat": 43.819245
 		}
 	}
 ]

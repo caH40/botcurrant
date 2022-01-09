@@ -1,12 +1,13 @@
+require('dotenv').config()
 const fetch = require('node-fetch');
-const fs = require('fs');
+const Weather = require('../models/Weather');
 const cityList = require('./citylistru.json')
 const logerror = require('../app_modules/logerror')
 
 const writeCurrentWeather = function () {
 
 	let i = 0
-	const cityMy = ['Kislovodsk', 'Pyatigorsk', 'Karachayevsk', 'Alagir', 'Arkhyz', 'Baksan', 'Nal’chik']
+	const cityMy = ['Кисловодск', 'Пятигорск', 'Карачаевск', 'Алагир', 'Архыз', 'Баксан', 'Нальчик']
 	const arrayWeatherSun = []
 	const arrayWeatherSat = []
 	const arrayWeatherTom = []
@@ -16,8 +17,7 @@ const writeCurrentWeather = function () {
 		let lon = cityList.filter(obj => obj.name === cityMy[x])[0].coord.lon
 		let lat = cityList.filter(obj => obj.name === cityMy[x])[0].coord.lat
 
-		const requestUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=2b149698008867fabba93ac5e856e71e&exclude=hourly&units=metric&lang=ru` // first token
-		// const requestUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=0ab9f04031374506e1d90ffb30e3d937&exclude=hourly&units=metric&lang=ru` //second token
+		const requestUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${(process.env.IDWEATHER)}&exclude=hourly&units=metric&lang=ru`
 
 		fetch(requestUrl)
 			.then(function (resp) {
@@ -46,17 +46,7 @@ const writeCurrentWeather = function () {
 					}
 					weatherDateRus = dayMyObj[dayWeather] + ' ' + weatherDate
 
-					const cityMyObj = {
-						'Kislovodsk': 'Кисловодск',
-						'Pyatigorsk': 'Пятигорск',
-						'Karachayevsk': 'Карачаевск',
-						'Alagir': 'Алагир',
-						'Arkhyz': 'Архыз',
-						'Baksan': 'Баксан',
-						'Nal’chik': 'Нальчик'
-					}
-
-					const zap = { 'dateUpdate': dateUpdate, 'date': weatherDateRus, 'city': cityMyObj[cityMy[x]], 'temp': Math.round(weatherTemp), 'humidity': weatherHumidity, 'windSpeed': Math.round(weatherWindSpeed), 'desc': weatherDescription }
+					const zap = { 'dateUpdate': dateUpdate, 'date': weatherDateRus, 'city': cityMy[x], 'temp': Math.round(weatherTemp), 'humidity': weatherHumidity, 'windSpeed': Math.round(weatherWindSpeed), 'desc': weatherDescription }
 
 					if (dayWeather === 0 && dayWeatherToday !== new Date().toLocaleDateString()) {
 						arrayWeatherSun.push(zap)
@@ -72,21 +62,26 @@ const writeCurrentWeather = function () {
 				arrayWeatherSat.sort((a, b) => b.temp - a.temp)
 				arrayWeatherTom.sort((a, b) => b.temp - a.temp)
 
-				fs.writeFile('./weather/sunweather.json', JSON.stringify(arrayWeatherSun), err => {
-					if (err) {
-						logerror(err)
-					}
-				})
-				fs.writeFile('./weather/satweather.json', JSON.stringify(arrayWeatherSat), err => {
-					if (err) {
-						logerror(err)
-					}
-				})
-				fs.writeFile('./weather/tomweather.json', JSON.stringify(arrayWeatherTom), err => {
-					if (err) {
-						logerror(err)
-					}
-				})
+
+
+
+
+
+				// fs.writeFile('./weather/sunweather.json', JSON.stringify(arrayWeatherSun), err => {
+				// 	if (err) {
+				// 		logerror(err)
+				// 	}
+				// })
+				// fs.writeFile('./weather/satweather.json', JSON.stringify(arrayWeatherSat), err => {
+				// 	if (err) {
+				// 		logerror(err)
+				// 	}
+				// })
+				// fs.writeFile('./weather/tomweather.json', JSON.stringify(arrayWeatherTom), err => {
+				// 	if (err) {
+				// 		logerror(err)
+				// 	}
+				// })
 
 			}
 			)
