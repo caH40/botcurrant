@@ -96,7 +96,7 @@ bot.launch();
 const secondsInHour = 3600000
 setInterval(() => {
 	getWeatherDb()
-}, secondsInHour);
+}, 10000);
 
 
 // Enable graceful stop

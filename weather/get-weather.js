@@ -1,7 +1,9 @@
 require('dotenv').config();
+const fs = require('fs');
 const fetch = require('node-fetch');
 const cityList = require('./citylistru.json')
 const WeatherWeek = require('../models/WeatherWeek');
+const { stringify } = require('querystring');
 
 const getWeatherDb = function () {
 	let i = 0
@@ -19,6 +21,7 @@ const getWeatherDb = function () {
 				return resp.json()
 			})
 			.then(function (data) {
+				fs.appendFileSync('./data.JSON', JSON.stringify(data))
 				for (let i = 0; i < 8; i = i + 1) {
 					const weatherDate = new Date(data.daily[i].dt * 1000).toLocaleDateString();
 					const weatherTempDay = data.daily[i].temp.day;
