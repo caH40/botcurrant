@@ -1,13 +1,21 @@
 const keyboards = {
 	webCam: [
 		[
+			// {
+			// 	text: 'Шаджатмаз-КМВ',
+			// 	url: 'http://gw.cmo.sai.msu.ru/webcam1.jpg' //внешняя ссылка
+			// },
 			{
 				text: 'Шаджатмаз-КМВ',
-				url: 'http://gw.cmo.sai.msu.ru/webcam1.jpg' //внешняя ссылка
+				callback_data: 'webcam1'
 			},
+			// {
+			// 	text: 'Шаджатмаз-Бермамыт',
+			// 	url: 'http://gw.cmo.sai.msu.ru/webcam5.jpg'
+			// },
 			{
 				text: 'Шаджатмаз-Бермамыт',
-				url: 'http://gw.cmo.sai.msu.ru/webcam5.jpg'
+				callback_data: 'webcam5'
 			}
 		],
 		[

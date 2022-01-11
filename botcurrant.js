@@ -77,6 +77,10 @@ bot.on('callback_query', async ctx => {
 		}
 		if (data === 'weatherTomorrow') {
 			weatherPost(data, ctx);
+
+		}
+		if (data.includes('webcam')) {
+			await screenShot(data, ctx);
 		}
 		await logsAllMessages(ctx.message);
 	} catch (error) {
