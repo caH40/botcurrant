@@ -8,6 +8,7 @@ const text = require('./app_modules/texts');
 const keyboards = require('./app_modules/keyboards');
 const weatherPost = require('./app_modules/weather-post');
 const logsAllMessages = require('./app_modules/log-messages');
+const screenShot = require('./app_modules/screenshot');
 
 // подключение к базе данных
 mongoose.connect(process.env.MONGODB)
