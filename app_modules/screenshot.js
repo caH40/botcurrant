@@ -14,9 +14,9 @@ async function screenShot(webcam, bot) {
 		await page.goto(`https://gw.cmo.sai.msu.ru/${webcam}.jpg`);
 		// чтобы дождаться загружаемого селектора:
 		await page.waitForSelector('body > img');
-		await page.screenshot({ path: `./scr/${webcam}.jpg` });
+		await page.screenshot({ path: `./images/${webcam}.jpg` });
 		await browser.close();
-		await bot.replyWithPhoto({ source: `./scr/${webcam}.jpg` })
+		await bot.replyWithPhoto({ source: `./images/${webcam}.jpg` })
 	} catch (error) {
 		console.log(error)
 	}
