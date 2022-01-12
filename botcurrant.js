@@ -27,7 +27,7 @@ bot.catch((err, ctx) => {
 
 bot.start(async ctx => {
 	try {
-		await ctx.reply(`Привет! ${ctx.message.from.first_name ?? 'Незнакомец'}!\nПри нажатии "/" вызываются команды бота!`);
+		await ctx.reply(`Привет! ${ctx.message.from.first_name ?? 'Незнакомец'}!\n${text.start}`);
 		await logsAllMessages(ctx.message);
 	} catch (error) {
 		console.log(error);
@@ -36,7 +36,7 @@ bot.start(async ctx => {
 
 bot.help(async ctx => {
 	try {
-		await ctx.reply(text.commands);
+		await ctx.reply(text.help);
 		await logsAllMessages(ctx.message);
 	} catch (error) {
 		console.log(error);
