@@ -47,8 +47,8 @@ bot.command('webcam', async ctx => {
 	try {
 		await ctx.reply('Вебкамеры:', { reply_markup: { inline_keyboard: keyboards.webCam } });
 		setTimeout(() => {
-			ctx.deleteMessage(ctx.update.message.message_id + 1).catch(console.log(error));
-			ctx.deleteMessage(ctx.update.message.message_id).catch(console.log(error));
+			ctx.deleteMessage(ctx.update.message.message_id + 1).catch((error) => console.log(error));
+			ctx.deleteMessage(ctx.update.message.message_id).catch((error) => console.log(error));
 		}, secondsInMinute);
 		await logsAllMessages(ctx.message);
 	} catch (error) {
@@ -60,8 +60,8 @@ bot.command('info', async ctx => {
 	try {
 		await ctx.reply('Информационные ресурсы:', { reply_markup: { inline_keyboard: keyboards.info } });
 		setTimeout(() => {
-			ctx.deleteMessage(ctx.update.message.message_id + 1).catch(console.log(error));
-			ctx.deleteMessage(ctx.update.message.message_id).catch(console.log(error));
+			ctx.deleteMessage(ctx.update.message.message_id + 1).catch((error) => console.log(error));
+			ctx.deleteMessage(ctx.update.message.message_id).catch((error) => console.log(error));
 		}, secondsInMinute);
 		await logsAllMessages(ctx.message);
 	} catch (error) {
