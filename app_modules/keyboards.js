@@ -1,22 +1,22 @@
 const keyboards = {
 	webCam: [
 		[
-			// {
-			// 	text: 'Шаджатмаз-КМВ',
-			// 	url: 'http://gw.cmo.sai.msu.ru/webcam1.jpg' //внешняя ссылка
-			// },
 			{
 				text: 'Шаджатмаз-КМВ',
-				callback_data: 'webcam1'
+				url: 'http://gw.cmo.sai.msu.ru/webcam1.jpg' //внешняя ссылка
 			},
 			// {
-			// 	text: 'Шаджатмаз-Бермамыт',
-			// 	url: 'http://gw.cmo.sai.msu.ru/webcam5.jpg'
+			// 	text: 'Шаджатмаз-КМВ',
+			// 	callback_data: 'webcam1'
 			// },
 			{
 				text: 'Шаджатмаз-Бермамыт',
-				callback_data: 'webcam5'
-			}
+				url: 'http://gw.cmo.sai.msu.ru/webcam5.jpg'
+			},
+			// {
+			// 	text: 'Шаджатмаз-Бермамыт',
+			// 	callback_data: 'webcam5'
+			// }
 		],
 		[
 			{
