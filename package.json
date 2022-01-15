@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^10.0.0",
+    "image-downloader": "^4.0.3",
     "mongoose": "^6.0.14",
     "nodemon": "^2.0.15",
     "puppeteer": "^13.0.1",
