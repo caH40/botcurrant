@@ -10,6 +10,7 @@ const weatherPost = require('./app_modules/weather-post');
 const logsAllMessages = require('./app_modules/log-messages');
 const screenShot = require('./app_modules/screenshot');
 const screenDownLoad = require('./app_modules/screen-dl')
+const deleteMes = require('./app_modules/delete-mes');
 
 // подключение к базе данных
 mongoose.connect(process.env.MONGODB)
@@ -38,6 +39,7 @@ bot.start(async ctx => {
 bot.help(async ctx => {
 	try {
 		await ctx.reply(text.help);
+		deleteMes(ctx, 0);
 		await logsAllMessages(ctx.message);
 	} catch (error) {
 		console.log(error);
@@ -47,9 +49,9 @@ bot.help(async ctx => {
 bot.command('webcam', async ctx => {
 	try {
 		await ctx.reply('Вебкамеры:', { reply_markup: { inline_keyboard: keyboards.webCam } });
+		deleteMes(ctx, 0);
 		setTimeout(() => {
-			ctx.deleteMessage(ctx.update.message.message_id + 1).catch((error) => console.log(error));
-			ctx.deleteMessage(ctx.update.message.message_id).catch((error) => console.log(error));
+			deleteMes(ctx, 1);
 		}, secondsInMinute);
 		await logsAllMessages(ctx.message);
 	} catch (error) {
@@ -60,9 +62,9 @@ bot.command('webcam', async ctx => {
 bot.command('info', async ctx => {
 	try {
 		await ctx.reply('Информационные ресурсы:', { reply_markup: { inline_keyboard: keyboards.info } });
+		deleteMes(ctx, 0);
 		setTimeout(() => {
-			ctx.deleteMessage(ctx.update.message.message_id + 1).catch((error) => console.log(error));
-			ctx.deleteMessage(ctx.update.message.message_id).catch((error) => console.log(error));
+			deleteMes(ctx, 1);
 		}, secondsInMinute);
 		await logsAllMessages(ctx.message);
 	} catch (error) {
