@@ -86,7 +86,9 @@ bot.on('callback_query', async ctx => {
 			// await screenShot(data, ctx); //with pupppeteer
 			await screenDownLoad(data, ctx);
 		}
-		await logsAllMessages(ctx.message);
+		// пока нет необходимости в логах
+		// await logsAllMessages(ctx.update.callback_query); 
+
 	} catch (error) {
 		console.log(error);
 	}
