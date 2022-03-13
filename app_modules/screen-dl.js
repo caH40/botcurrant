@@ -1,4 +1,4 @@
-const download = require('image-downloader')
+const download = require('image-downloader');
 
 async function screenDownLoad(webcam, bot) {
 	try {
@@ -8,7 +8,7 @@ async function screenDownLoad(webcam, bot) {
 		};
 		await download.image(options)
 			.catch(() => {
-				bot.reply('Что то пошло не так, есть только более ранняя фотография...')
+				bot.reply('Что то пошло не так, есть более ранняя фотография...')
 			})
 		await bot.replyWithPhoto({ source: `./images/${webcam}.jpg` });
 	} catch (error) {
