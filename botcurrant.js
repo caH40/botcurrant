@@ -49,7 +49,7 @@ bot.help(async ctx => {
 })
 bot.command('repair', async ctx => {
 	try {
-		await ctx.reply(text.bikeMaster, { parse_mode: 'html' })
+		await ctx.reply(text.bikeMaster, { parse_mode: 'html', disable_web_page_preview: true })
 		deleteMes(ctx, 0)
 		await logsAllMessages(ctx.message)
 	} catch (error) {
