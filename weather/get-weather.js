@@ -21,7 +21,7 @@ const getWeatherDb = function () {
 	]
 	const arrayWeather = []
 
-	for (let x = 0; x < city.length; x++) {
+	for (let x = 0; x < cityMy.length; x++) {
 		let lon = cityList.filter(obj => obj.name === cityMy[x])[0].coord.lon
 		let lat = cityList.filter(obj => obj.name === cityMy[x])[0].coord.lat
 
