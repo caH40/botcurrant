@@ -1,17 +1,27 @@
-require('dotenv').config();
-const fs = require('fs');
-const fetch = require('node-fetch');
+require('dotenv').config()
+const fs = require('fs')
+const fetch = require('node-fetch')
 const cityList = require('./citylistru.json')
-const WeatherWeek = require('../models/WeatherWeek');
-const { stringify } = require('querystring');
+const WeatherWeek = require('../models/WeatherWeek')
+const { stringify } = require('querystring')
 
 const getWeatherDb = function () {
 	let i = 0
-	const cityMy = ['Кисловодск', 'Пятигорск', 'Карачаевск', 'Алагир', 'Архыз', 'Баксан', 'Нальчик', 'Минеральные Воды', 'Барашек', 'Ессентуки']
+	const cityMy = [
+		'Кисловодск',
+		'Пятигорск',
+		'Карачаевск',
+		'Алагир',
+		'Архыз',
+		'Баксан',
+		'Нальчик',
+		'Барашек',
+		'Ессентуки',
+		'Каменномостский',
+	]
 	const arrayWeather = []
 
-	for (let x = 0; x < 10; x++) {
-
+	for (let x = 0; x < city.length; x++) {
 		let lon = cityList.filter(obj => obj.name === cityMy[x])[0].coord.lon
 		let lat = cityList.filter(obj => obj.name === cityMy[x])[0].coord.lat
 
@@ -23,16 +33,16 @@ const getWeatherDb = function () {
 			.then(function (data) {
 				fs.appendFileSync('./data.JSON', JSON.stringify(data))
 				for (let i = 0; i < 8; i = i + 1) {
-					const weatherDate = new Date(data.daily[i].dt * 1000).toLocaleDateString();
-					const weatherTempDay = data.daily[i].temp.day;
-					const weatherTempMorn = data.daily[i].temp.morn;
-					const weatherTempEve = data.daily[i].temp.eve;
-					const weatherHumidity = data.daily[i].humidity;
-					const weatherWindSpeed = data.daily[i].wind_speed;
-					const weatherDescription = data.daily[i].weather[0].description;
-					const dayWeather = new Date(data.daily[i].dt * 1000).getDay();
-					const dayWeatherToday = new Date(data.daily[i].dt * 1000).toLocaleDateString();
-					const dateUpdate = new Date().toLocaleString();
+					const weatherDate = new Date(data.daily[i].dt * 1000).toLocaleDateString()
+					const weatherTempDay = data.daily[i].temp.day
+					const weatherTempMorn = data.daily[i].temp.morn
+					const weatherTempEve = data.daily[i].temp.eve
+					const weatherHumidity = data.daily[i].humidity
+					const weatherWindSpeed = data.daily[i].wind_speed
+					const weatherDescription = data.daily[i].weather[0].description
+					const dayWeather = new Date(data.daily[i].dt * 1000).getDay()
+					const dayWeatherToday = new Date(data.daily[i].dt * 1000).toLocaleDateString()
+					const dateUpdate = new Date().toLocaleString()
 
 					const dayMyObj = {
 						1: 'Понедельник',
@@ -46,16 +56,16 @@ const getWeatherDb = function () {
 					weatherDateRus = dayMyObj[dayWeather] + ' ' + weatherDate
 
 					const zap = {
-						'dateUpdate': dateUpdate,
-						'date': weatherDate,
-						'dateString': dayMyObj[dayWeather],
-						'city': cityMy[x],
-						'tempMorn': weatherTempMorn,
-						'tempDay': weatherTempDay,
-						'tempEve': weatherTempEve,
-						'humidity': weatherHumidity,
-						'windSpeed': weatherWindSpeed,
-						'desc': weatherDescription
+						dateUpdate: dateUpdate,
+						date: weatherDate,
+						dateString: dayMyObj[dayWeather],
+						city: cityMy[x],
+						tempMorn: weatherTempMorn,
+						tempDay: weatherTempDay,
+						tempEve: weatherTempEve,
+						humidity: weatherHumidity,
+						windSpeed: weatherWindSpeed,
+						desc: weatherDescription,
 					}
 					// формирование массива погоды с отфильтрованными данными
 					arrayWeather.push(zap)
@@ -71,9 +81,8 @@ const getWeatherDb = function () {
 					}
 				}
 				week()
-			}
-			)
-			.catch((err) => console.log('Fetch - ' + err))
-	};
+			})
+			.catch(err => console.log('Fetch - ' + err))
+	}
 }
 module.exports = getWeatherDb
