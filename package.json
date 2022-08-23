@@ -13,12 +13,11 @@
   "dependencies": {
     "dotenv": "^10.0.0",
     "image-downloader": "^4.0.3",
-    "mongoose": "^6.0.14",
+    "mongoose": "^6.5.2",
     "nodemon": "^2.0.15",
     "puppeteer": "^13.0.1",
     "telegraf": "^3.39.0"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/caH40/botcurrant.git"
