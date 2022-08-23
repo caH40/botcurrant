@@ -8,7 +8,6 @@ const text = require('./app_modules/texts');
 const keyboards = require('./app_modules/keyboards');
 const weatherPost = require('./app_modules/weather-post');
 const logsAllMessages = require('./app_modules/log-messages');
-const screenShot = require('./app_modules/screenshot');
 const screenDownLoad = require('./app_modules/screen-dl');
 const deleteMes = require('./app_modules/delete-mes');
 const bikeMaster = require('./app_modules/bike-master');
@@ -98,7 +97,6 @@ bot.on('callback_query', async ctx => {
 			weatherPost(data, ctx);
 		}
 		if (data.includes('webcam')) {
-			// await screenShot(data, ctx); //with pupppeteer
 			await screenDownLoad(data, ctx);
 		}
 		// пока нет необходимости в логах
