@@ -15,7 +15,6 @@
     "image-downloader": "^4.0.3",
     "mongoose": "^6.5.2",
     "nodemon": "^2.0.15",
-    "puppeteer": "^13.0.1",
     "telegraf": "^3.39.0"
   },
   "repository": {
