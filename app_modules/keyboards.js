@@ -48,6 +48,18 @@ const keyboards = {
 		],
 		[
 			{
+				text: 'Результаты соревнований ДжилыСу', // текст на кнопке
+				web_app: 'https://bike-caucasus.ru/dzhilsu',
+			},
+		],
+		[
+			{
+				text: 'Велосипедные маршруты', // текст на кнопке
+				web_app: 'https://bike-caucasus.ru/trail',
+			},
+		],
+		[
+			{
 				text: 'Веломастерские на КМВ', // текст на кнопке
 				callback_data: 'bikeMaster',
 			},
@@ -65,5 +77,5 @@ const keyboards = {
 			},
 		],
 	],
-}
-module.exports = keyboards
+};
+module.exports = keyboards;
