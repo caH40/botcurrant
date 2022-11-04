@@ -1,12 +1,12 @@
-require('dotenv').config()
-const fs = require('fs')
-const fetch = require('node-fetch')
-const cityList = require('./citylistru.json')
-const WeatherWeek = require('../models/WeatherWeek')
-const { stringify } = require('querystring')
+require('dotenv').config();
+const fs = require('fs');
+const fetch = require('node-fetch');
+const cityList = require('./citylistru.json');
+const WeatherWeek = require('../models/WeatherWeek');
+const { stringify } = require('querystring');
 
 const getWeatherDb = function () {
-	let i = 0
+	let i = 0;
 	const cityMy = [
 		'Кисловодск',
 		'Пятигорск',
@@ -17,32 +17,32 @@ const getWeatherDb = function () {
 		'Нальчик',
 		'Барашек',
 		'Ессентуки',
-		'Каменномостский',
-	]
-	const arrayWeather = []
+		'Ставрополь',
+	];
+	const arrayWeather = [];
 
 	for (let x = 0; x < cityMy.length; x++) {
-		let lon = cityList.filter(obj => obj.name === cityMy[x])[0].coord.lon
-		let lat = cityList.filter(obj => obj.name === cityMy[x])[0].coord.lat
+		let lon = cityList.filter(obj => obj.name === cityMy[x])[0].coord.lon;
+		let lat = cityList.filter(obj => obj.name === cityMy[x])[0].coord.lat;
 
-		const requestUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${process.env.IDWEATHER}&exclude=hourly&units=metric&lang=ru`
+		const requestUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${process.env.IDWEATHER}&exclude=hourly&units=metric&lang=ru`;
 		fetch(requestUrl)
 			.then(function (resp) {
-				return resp.json()
+				return resp.json();
 			})
 			.then(function (data) {
-				fs.appendFileSync('./data.JSON', JSON.stringify(data))
+				fs.appendFileSync('./data.JSON', JSON.stringify(data));
 				for (let i = 0; i < 8; i = i + 1) {
-					const weatherDate = new Date(data.daily[i].dt * 1000).toLocaleDateString()
-					const weatherTempDay = data.daily[i].temp.day
-					const weatherTempMorn = data.daily[i].temp.morn
-					const weatherTempEve = data.daily[i].temp.eve
-					const weatherHumidity = data.daily[i].humidity
-					const weatherWindSpeed = data.daily[i].wind_speed
-					const weatherDescription = data.daily[i].weather[0].description
-					const dayWeather = new Date(data.daily[i].dt * 1000).getDay()
-					const dayWeatherToday = new Date(data.daily[i].dt * 1000).toLocaleDateString()
-					const dateUpdate = new Date().toLocaleString()
+					const weatherDate = new Date(data.daily[i].dt * 1000).toLocaleDateString();
+					const weatherTempDay = data.daily[i].temp.day;
+					const weatherTempMorn = data.daily[i].temp.morn;
+					const weatherTempEve = data.daily[i].temp.eve;
+					const weatherHumidity = data.daily[i].humidity;
+					const weatherWindSpeed = data.daily[i].wind_speed;
+					const weatherDescription = data.daily[i].weather[0].description;
+					const dayWeather = new Date(data.daily[i].dt * 1000).getDay();
+					const dayWeatherToday = new Date(data.daily[i].dt * 1000).toLocaleDateString();
+					const dateUpdate = new Date().toLocaleString();
 
 					const dayMyObj = {
 						1: 'Понедельник',
@@ -52,8 +52,8 @@ const getWeatherDb = function () {
 						5: 'Пятница',
 						6: 'Суббота',
 						0: 'Воскресенье',
-					}
-					weatherDateRus = dayMyObj[dayWeather] + ' ' + weatherDate
+					};
+					weatherDateRus = dayMyObj[dayWeather] + ' ' + weatherDate;
 
 					const zap = {
 						dateUpdate: dateUpdate,
@@ -66,23 +66,23 @@ const getWeatherDb = function () {
 						humidity: weatherHumidity,
 						windSpeed: weatherWindSpeed,
 						desc: weatherDescription,
-					}
+					};
 					// формирование массива погоды с отфильтрованными данными
-					arrayWeather.push(zap)
+					arrayWeather.push(zap);
 				}
 				//обновление данных о погоде в базе данных, если нет, то создает новую коллекцию
 				const week = async () => {
-					const savedWeather = await WeatherWeek.findOne()
+					const savedWeather = await WeatherWeek.findOne();
 					if (savedWeather) {
-						await WeatherWeek.findByIdAndUpdate(savedWeather.id, { list: arrayWeather })
+						await WeatherWeek.findByIdAndUpdate(savedWeather.id, { list: arrayWeather });
 					} else {
-						const week = await new WeatherWeek({ list: arrayWeather })
-						week.save()
+						const week = await new WeatherWeek({ list: arrayWeather });
+						week.save();
 					}
-				}
-				week()
+				};
+				week();
 			})
-			.catch(err => console.log('Fetch - ' + err))
+			.catch(err => console.log('Fetch - ' + err));
 	}
-}
-module.exports = getWeatherDb
+};
+module.exports = getWeatherDb;
