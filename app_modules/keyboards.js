@@ -49,13 +49,13 @@ const keyboards = {
 		[
 			{
 				text: 'Результаты соревнований ДжилыСу', // текст на кнопке
-				web_app: 'https://bike-caucasus.ru/dzhilsu',
+				web_app: { url: 'https://bike-caucasus.ru/dzhilsu' },
 			},
 		],
 		[
 			{
 				text: 'Велосипедные маршруты', // текст на кнопке
-				web_app: 'https://bike-caucasus.ru/trail',
+				web_app: { url: 'https://bike-caucasus.ru/trail' },
 			},
 		],
 		[
