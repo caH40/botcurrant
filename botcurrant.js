@@ -5,7 +5,7 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 
 const getWeatherDb = require('./weather/get-weather');
 const text = require('./app_modules/texts');
-const keyboards = require('./app_modules/keyboards');
+const { keyboards, info } = require('./app_modules/keyboards');
 const weatherPost = require('./app_modules/weather-post');
 const logsAllMessages = require('./app_modules/log-messages');
 const screenDownLoad = require('./app_modules/screen-dl');
@@ -71,8 +71,10 @@ bot.command('webcam', async ctx => {
 
 bot.command('info', async ctx => {
 	try {
+		let isPrivate = false;
+		if (ctx.update.message.chat.type === 'private') isPrivate = true;
 		await ctx.reply('Информационные ресурсы:', {
-			reply_markup: { inline_keyboard: keyboards.info },
+			reply_markup: { inline_keyboard: info(isPrivate) },
 		});
 		deleteMes(ctx, 0);
 		setTimeout(() => {

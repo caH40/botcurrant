@@ -1,18 +1,11 @@
 const keyboards = {
 	webCam: [
 		[
-			// {
-			// 	text: 'Шаджатмаз-КМВ',
-			// 	url: 'https://gw.cmo.sai.msu.ru/webcam1.jpg' //внешняя ссылка
-			// },
 			{
 				text: 'Шаджатмаз-КМВ',
 				callback_data: 'webcam1',
 			},
-			// {
-			// 	text: 'Шаджатмаз-Бермамыт',
-			// 	url: 'https://gw.cmo.sai.msu.ru/webcam5.jpg'
-			// },
+
 			{
 				text: 'Шаджатмаз-Бермамыт',
 				callback_data: 'webcam5',
@@ -39,25 +32,31 @@ const keyboards = {
 			},
 		],
 	],
-	info: [
+};
+function info(isPrivate) {
+	return [
 		[
 			{
 				text: 'Анонсы и результаты соревнований', // текст на кнопке
 				url: 'https://t.me/results_cycling_KMV',
 			},
 		],
-		[
-			{
-				text: 'Результаты соревнований ДжилыСу', // текст на кнопке
-				web_app: { url: 'https://bike-caucasus.ru/dzhilsu' },
-			},
-		],
-		[
-			{
-				text: 'Велосипедные маршруты', // текст на кнопке
-				web_app: { url: 'https://bike-caucasus.ru/trail' },
-			},
-		],
+		isPrivate
+			? [
+					{
+						text: 'Результаты соревнований ДжилыСу', // текст на кнопке
+						web_app: { url: 'https://bike-caucasus.ru/dzhilsu' },
+					},
+			  ]
+			: [],
+		isPrivate
+			? [
+					{
+						text: 'Велосипедные маршруты', // текст на кнопке
+						web_app: { url: 'https://bike-caucasus.ru/trail' },
+					},
+			  ]
+			: [],
 		[
 			{
 				text: 'Веломастерские на КМВ', // текст на кнопке
@@ -76,6 +75,7 @@ const keyboards = {
 				callback_data: 'weatherWeekend',
 			},
 		],
-	],
-};
-module.exports = keyboards;
+	];
+}
+module.exports.keyboards = keyboards;
+module.exports.info = info;
