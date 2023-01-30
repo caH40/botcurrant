@@ -3,19 +3,17 @@
 	"version": "1.0.0",
 	"description": "bot currant",
 	"main": "botcurrant.js",
+	"type": "module",
 	"scripts": {
-		"start": "node botmeetup.js",
-		"dev": "nodemon botmeetup.js",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"dev": "nodemon botmeetup.js"
 	},
 	"author": "Berezhnev A.",
 	"license": "ISC",
 	"dependencies": {
 		"dotenv": "^10.0.0",
 		"image-downloader": "^4.3.0",
-		"mongoose": "^6.5.2",
-		"nodemon": "^2.0.15",
-		"telegraf": "^3.39.0"
+		"mongoose": "^6.9.0",
+		"telegraf": "^4.11.2"
 	},
 	"repository": {
 		"type": "git",
@@ -24,5 +22,8 @@
 	"bugs": {
 		"url": "https://github.com/caH40/botcurrant/issues"
 	},
-	"homepage": "https://github.com/caH40/botcurrant#readme"
+	"homepage": "https://github.com/caH40/botcurrant#readme",
+	"devDependencies": {
+		"nodemon": "^2.0.20"
+	}
 }

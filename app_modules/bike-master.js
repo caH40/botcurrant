@@ -1,7 +1,7 @@
-const texts = require('./texts');
-const shuffle = require('./shuffle');
+import { texts } from './texts.js';
+import { shuffle } from './shuffle.js';
 
-async function bikeMaster(bot) {
+export async function bikeMaster(bot) {
 	const shufflePostsArr = shuffle(texts.bikeMaster);
 	//конкатенация элементов массива
 	let shufflePosts = '';
@@ -13,5 +13,3 @@ async function bikeMaster(bot) {
 		.reply(shufflePosts, { parse_mode: 'html', disable_web_page_preview: true })
 		.catch(error => console.log(error));
 }
-
-module.exports = bikeMaster;

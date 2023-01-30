@@ -1,11 +1,9 @@
-const { Schema, model } = require('mongoose')
+import { Schema, model } from 'mongoose';
 
 const weatherWeek = new Schema({
 	list: {
+		type: Object,
+	},
+});
 
-		type: Object
-
-	}
-})
-
-module.exports = model('weatherWeeks', weatherWeek)
+export const WeatherWeek = model('weatherWeeks', weatherWeek);

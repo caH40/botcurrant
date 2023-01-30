@@ -1,11 +1,11 @@
-require('dotenv').config();
-const fs = require('fs');
-const fetch = require('node-fetch');
-const cityList = require('./citylistru.json');
-const WeatherWeek = require('../models/WeatherWeek');
-const { stringify } = require('querystring');
+import 'dotenv/config';
+import fs from 'fs';
+import fetch from 'node-fetch';
+import cityList from './citylistru.json' assert { type: 'json' };
+import { WeatherWeek } from '../models/WeatherWeek.js';
+import { stringify } from 'querystring';
 
-const getWeatherDb = function () {
+export const getWeatherDb = function () {
 	let i = 0;
 	const cityMy = [
 		'Кисловодск',
@@ -85,4 +85,3 @@ const getWeatherDb = function () {
 			.catch(err => console.log('Fetch - ' + err));
 	}
 };
-module.exports = getWeatherDb;

@@ -1,4 +1,4 @@
-const keyboards = {
+export const keyboards = {
 	webCam: [
 		[
 			{
@@ -33,7 +33,8 @@ const keyboards = {
 		],
 	],
 };
-function info(isPrivate) {
+
+export function info(isPrivate) {
 	return [
 		[
 			{
@@ -53,7 +54,7 @@ function info(isPrivate) {
 			? [
 					{
 						text: 'Велосипедные маршруты', // текст на кнопке
-						web_app: { url: 'https://bike-caucasus.ru/trail' },
+						web_app: { url: 'https://bike-caucasus.ru/trails' },
 					},
 			  ]
 			: [],
@@ -77,5 +78,3 @@ function info(isPrivate) {
 		],
 	];
 }
-module.exports.keyboards = keyboards;
-module.exports.info = info;
