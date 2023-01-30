@@ -3,7 +3,6 @@ import fs from 'fs';
 import fetch from 'node-fetch';
 import cityList from './citylistru.json' assert { type: 'json' };
 import { WeatherWeek } from '../models/WeatherWeek.js';
-import { stringify } from 'querystring';
 
 export const getWeatherDb = function () {
 	let i = 0;
