@@ -1,7 +1,7 @@
-const WeatherWeek = require('../models/WeatherWeek');
+import { WeatherWeek } from '../models/WeatherWeek.js';
 
 //получение массива с погодой из базы данных
-async function getWeather(currentDay, bot) {
+export async function getWeather(currentDay, bot) {
 	const weatherArr = await WeatherWeek.findOne().catch(error => console.log(error));
 
 	if (currentDay === 'weatherWeekend') {
@@ -30,20 +30,24 @@ async function getWeather(currentDay, bot) {
 	}
 }
 
-
 async function getMessageFinal(requiredDay, weatherArr, bot) {
-	//исключается сегодняшний выходной день 
-	let weatherCurrent = await weatherArr.list.filter(element => element.dateString === requiredDay && element.date !== new Date().toLocaleDateString());
+	//исключается сегодняшний выходной день
+	let weatherCurrent = await weatherArr.list.filter(
+		element =>
+			element.dateString === requiredDay && element.date !== new Date().toLocaleDateString()
+	);
 	// сортировка массива по дневной температуре(tempDay) от большей к меньшей
 	weatherCurrent.sort((a, b) => b.tempDay - a.tempDay);
 	//формирование сообщения о погоде в городах
 	let messageFinal = `<u><b>${weatherCurrent[0].dateString} ${weatherCurrent[0].date} \n</b></u>`;
 	for (let i = 0; i < weatherCurrent.length; i++) {
-		const messageWeather = `<b>${weatherCurrent[i].city}:</b> ${Math.round(weatherCurrent[i].tempDay)}°С, ${weatherCurrent[i].humidity}%, ${Math.round(weatherCurrent[i].windSpeed)}м/с, ${weatherCurrent[i].desc} \n`;
+		const messageWeather = `<b>${weatherCurrent[i].city}:</b> ${Math.round(
+			weatherCurrent[i].tempDay
+		)}°С, ${weatherCurrent[i].humidity}%, ${Math.round(weatherCurrent[i].windSpeed)}м/с, ${
+			weatherCurrent[i].desc
+		} \n`;
 		messageFinal = messageFinal + messageWeather;
 	}
 
 	await bot.reply(messageFinal, { parse_mode: 'html' }).catch(error => console.log(error));
 }
-
-module.exports = getWeather

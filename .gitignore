@@ -3,3 +3,4 @@ info.txt
 .env*
 *.jpg
 error.js
+data.JSON

@@ -1,18 +1,18 @@
-require('dotenv').config();
-const mongoose = require('mongoose');
-const { Telegraf } = require('telegraf');
+import 'dotenv/config';
+import mongoose from 'mongoose';
+import { Telegraf } from 'telegraf';
+
+import { getWeatherDb } from './weather/get-weather.js';
+import { keyboards, info } from './app_modules/keyboards.js';
+import { getWeather } from './app_modules/weather-post.js';
+import { logsAllMessages } from './app_modules/log-messages.js';
+import { screenDownLoad } from './app_modules/screen-dl.js';
+import { deleteMes } from './app_modules/delete-mes.js';
+import { bikeMaster } from './app_modules/bike-master.js';
+
 const bot = new Telegraf(process.env.BOT_TOKEN);
-
-const getWeatherDb = require('./weather/get-weather');
-const text = require('./app_modules/texts');
-const { keyboards, info } = require('./app_modules/keyboards');
-const weatherPost = require('./app_modules/weather-post');
-const logsAllMessages = require('./app_modules/log-messages');
-const screenDownLoad = require('./app_modules/screen-dl');
-const deleteMes = require('./app_modules/delete-mes');
-const bikeMaster = require('./app_modules/bike-master');
-
 // подключение к базе данных
+mongoose.set('strictQuery', true); //в базе будут только данные которые есть в схеме
 mongoose
 	.connect(process.env.MONGODB)
 	.then(() => {
@@ -93,10 +93,10 @@ bot.on('callback_query', async ctx => {
 			await bikeMaster(ctx);
 		}
 		if (data === 'weatherWeekend') {
-			weatherPost(data, ctx);
+			getWeather(data, ctx);
 		}
 		if (data === 'weatherTomorrow') {
-			weatherPost(data, ctx);
+			getWeather(data, ctx);
 		}
 		if (data.includes('webcam')) {
 			await screenDownLoad(data, ctx);

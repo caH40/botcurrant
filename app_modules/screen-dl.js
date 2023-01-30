@@ -1,7 +1,7 @@
-const path = require('path');
-const download = require('image-downloader');
+import path from 'path';
+import download from 'image-downloader';
 
-async function screenDownLoad(webcam, bot) {
+export async function screenDownLoad(webcam, bot) {
 	try {
 		let options = {
 			url: `https://gw.cmo.sai.msu.ru/${webcam}.jpg`,
@@ -16,5 +16,3 @@ async function screenDownLoad(webcam, bot) {
 		console.log(error);
 	}
 }
-
-module.exports = screenDownLoad;
