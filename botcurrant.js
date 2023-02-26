@@ -8,7 +8,7 @@ import { screenDownLoad } from './app_modules/screen-dl.js';
 import { getStart } from './handlers/start.js';
 import { getHelp } from './handlers/help.js';
 import { getWorkshops } from './handlers/workshops.js';
-import { getWebcam } from './handlers/webcam.js';
+import { getWebcam, paginationWebcam } from './handlers/webcam.js';
 import { getInfo } from './handlers/info.js';
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
@@ -32,6 +32,10 @@ bot.action('bikeMaster', getWorkshops);
 bot.action('weatherWeekend', async ctx => await getCurrentWeather('weatherWeekend', ctx));
 bot.action('weatherTomorrow', async ctx => await getCurrentWeather('weatherTomorrow', ctx));
 bot.action(/webcam/, async ctx => await screenDownLoad(ctx.update.callback_query.data, ctx));
+// bot.on('callback_query', async ctx => {
+// 	const cbqData = ctx.update.callback_query.data;
+// 	await paginationWebcam(cbqData);
+// });
 
 bot.launch();
 // запрос погоды с сервера и запись данных в базу данных

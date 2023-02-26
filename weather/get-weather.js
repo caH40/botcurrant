@@ -4,7 +4,7 @@ import fetch from 'node-fetch';
 import cityList from './citylistru.json' assert { type: 'json' };
 import { WeatherWeek } from '../models/WeatherWeek.js';
 
-export const getWeatherDb = function () {
+export const getWeatherDb = async function () {
 	let i = 0;
 	const cityMy = [
 		'Кисловодск',
@@ -30,6 +30,7 @@ export const getWeatherDb = function () {
 				return resp.json();
 			})
 			.then(function (data) {
+				console.log(data);
 				fs.appendFileSync('./data.JSON', JSON.stringify(data));
 				for (let i = 0; i < 8; i = i + 1) {
 					const weatherDate = new Date(data.daily[i].dt * 1000).toLocaleDateString();
@@ -52,7 +53,7 @@ export const getWeatherDb = function () {
 						6: 'Суббота',
 						0: 'Воскресенье',
 					};
-					weatherDateRus = dayMyObj[dayWeather] + ' ' + weatherDate;
+					// weatherDateRus = dayMyObj[dayWeather] + ' ' + weatherDate;
 
 					const zap = {
 						dateUpdate: dateUpdate,
