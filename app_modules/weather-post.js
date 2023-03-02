@@ -3,7 +3,6 @@ import { WeatherWeek } from '../models/WeatherWeek.js';
 //получение массива с погодой из базы данных
 export async function getCurrentWeather(currentDay, bot) {
 	const weatherArr = await WeatherWeek.findOne().catch(error => console.log(error));
-	console.log(weatherArr);
 	if (currentDay === 'weatherWeekend') {
 		await getMessageFinal('Суббота', weatherArr, bot).catch(error => console.log(error));
 		await getMessageFinal('Воскресенье', weatherArr, bot).catch(error => console.log(error));
