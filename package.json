@@ -5,7 +5,7 @@
 	"main": "botcurrant.js",
 	"type": "module",
 	"scripts": {
-		"dev": "nodemon botmeetup.js"
+		"dev": "nodemon botmeetup.js -ext js"
 	},
 	"author": "Berezhnev A.",
 	"license": "ISC",
