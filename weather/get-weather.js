@@ -24,7 +24,7 @@ export const getWeatherDb = async function () {
 			let lon = cityList.filter(obj => obj.name === cityMy[x])[0].coord.lon;
 			let lat = cityList.filter(obj => obj.name === cityMy[x])[0].coord.lat;
 
-			const requestUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${process.env.IDWEATHER}&exclude=hourly&units=metric&lang=ru`;
+			const requestUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${process.env.IDWEATHER}&exclude=hourly&units=metric&lang=ru`;
 			const responseJson = await fetch(requestUrl);
 			const weatherData = await responseJson.json();
 			fs.appendFileSync('./data.JSON', JSON.stringify(weatherData));
