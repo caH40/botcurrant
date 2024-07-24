@@ -15,13 +15,13 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 
 mongoose.set('strictQuery', true); //в базе будут только данные которые есть в схеме
 mongoose
-	.connect(process.env.MONGODB)
-	.then(() => {
-		console.log('MongoDb connected..');
-	})
-	.catch(error => {
-		console.log(error);
-	});
+  .connect(process.env.MONGODB)
+  .then(() => {
+    console.log('MongoDb connected..');
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
 bot.start(getStart);
 bot.help(getHelp);
@@ -29,9 +29,9 @@ bot.command('repair', getWorkshops);
 bot.command('webcam', getWebcam);
 bot.command('info', getInfo);
 bot.action('bikeMaster', getWorkshops);
-bot.action('weatherWeekend', async ctx => await getCurrentWeather('weatherWeekend', ctx));
-bot.action('weatherTomorrow', async ctx => await getCurrentWeather('weatherTomorrow', ctx));
-bot.action(/webcam/, async ctx => await screenDownLoad(ctx.update.callback_query.data, ctx));
+bot.action('weatherWeekend', async (ctx) => await getCurrentWeather('weatherWeekend', ctx));
+bot.action('weatherTomorrow', async (ctx) => await getCurrentWeather('weatherTomorrow', ctx));
+bot.action(/webcam/, async (ctx) => await screenDownLoad(ctx.update.callback_query.data, ctx));
 // bot.on('callback_query', async ctx => {
 // 	const cbqData = ctx.update.callback_query.data;
 // 	await paginationWebcam(cbqData);
@@ -41,7 +41,7 @@ bot.launch();
 // запрос погоды с сервера и запись данных в базу данных
 const secondsInHour = 3600000;
 setInterval(async () => {
-	await getWeatherDb().catch(error => console.log(error));
+  await getWeatherDb().catch((error) => console.log(error));
 }, secondsInHour);
 
 // Enable graceful stop
