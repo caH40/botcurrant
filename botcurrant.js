@@ -23,6 +23,13 @@ mongoose
     console.log(error);
   });
 
+// Устанавливаем команды для меню
+bot.telegram.setMyCommands([
+  { command: 'webcam', description: 'Вебкамеры' },
+  { command: 'info', description: 'Полезная информация' },
+  { command: 'repair', description: 'Мастерские' },
+]);
+
 bot.start(getStart);
 bot.help(getHelp);
 bot.command('repair', getWorkshops);
