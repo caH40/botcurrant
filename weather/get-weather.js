@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import fs from 'fs';
 import { HttpsProxyAgent } from 'https-proxy-agent';
-import cityList from './citylistru.json' assert { type: 'json' };
+import cityList from './citylistru.json' with { type: 'json' };
 import { WeatherWeek } from '../models/WeatherWeek.js';
 import axios from 'axios';
 import { DateTime } from 'luxon';
